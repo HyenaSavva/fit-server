@@ -28,7 +28,7 @@ app.listen(PORT, async () => {
   await sequelize
     .sync()
     .then(() => {
-      console.log("Synced db.");
+      console.log(`Port ${PORT}. Synced database.`);
     })
     .catch((error) => {
       console.log("Failed to sync db: " + error.message);

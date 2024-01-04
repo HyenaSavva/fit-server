@@ -24,7 +24,7 @@ class AuthController {
     const { result, error } = await AuthService.loginUser(email, password);
     if (error) return res.status(error.status).json(error.message);
 
-    res.cookie("jwt", result.tokens.refreshToken, {
+    res.cookie("jwt", result.tokens?.refreshToken, {
       httpOnly: true,
       sameSite: "None",
       secure: true,
