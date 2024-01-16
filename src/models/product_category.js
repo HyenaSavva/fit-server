@@ -23,6 +23,13 @@ module.exports = function(sequelize, DataTypes) {
           { name: "id" },
         ]
       },
+      {
+        name: "product_category_pkey",
+        unique: true,
+        fields: [
+          { name: "id" },
+        ]
+      },
     ]
   });
 };
