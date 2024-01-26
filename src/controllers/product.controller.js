@@ -1,14 +1,22 @@
-const ProductAccessor = require("../accessors/Product.accessor");
+const ProductAccessor = require("../accessors/product.accessor");
 const ProductInstance = ProductAccessor.createProductInstance();
 
 class ProductController {
   async createProduct(req, res) {
-    const { name, address, phone_number, email } = req.body;
-    const customer = { name, address, phone_number, email };
+    const { productName, carbohydrates, proteins, fats, calories } = req.body;
+    const product = {
+      customer_id: req.userId,
+      name: productName,
+      carbohydrates,
+      proteins,
+      fats,
+      calories,
+    };
     try {
-      const result = await ProductInstance.create(customer);
+      const result = await ProductInstance.create(product);
       res.json(result);
     } catch (error) {
+      console.log(error);
       res.json(error);
     }
   }
@@ -44,6 +52,7 @@ class ProductController {
       res.json(error);
     }
   }
+
   async deleteProduct(req, res) {
     try {
       await ProductInstance.destroy({

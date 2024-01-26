@@ -17,9 +17,9 @@ class AuthService {
           error: { status: 409, message: "User already exist." },
         };
 
-      const accessToken = signAccessToken({ email });
-      const refreshToken = signRefreshToken({ email });
       const customer = await CustomerInstance.create({ email, password });
+      const accessToken = signAccessToken({ email, userId: customer.id });
+      const refreshToken = signRefreshToken({ email, userId: customer.id });
 
       await SessionInstance.create({
         customer_id: customer.id,
@@ -57,8 +57,8 @@ class AuthService {
       if (!session)
         return { error: { status: 403, message: "Token not found." } };
 
-      const accessToken = signAccessToken({ email });
-      const refreshToken = signRefreshToken({ email });
+      const accessToken = signAccessToken({ email, userId: customer.id });
+      const refreshToken = signRefreshToken({ email, userId: customer.id });
 
       await SessionInstance.update(
         { refresh_token: refreshToken },

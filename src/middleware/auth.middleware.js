@@ -6,9 +6,11 @@ const authMiddleware = (req, res, next) => {
   if (!authHeader) return res.sendStatus(401);
 
   const token = authHeader.split(" ")[1];
+
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
     if (err) return res.sendStatus(403);
     req.email = decoded.email;
+    req.userId = decoded.userId;
     next();
   });
 };
@@ -19,4 +21,5 @@ const corsEnableMiddleware = (req, res, next) => {
     res.header("Access-Control-Allow-Credentials", true);
   next();
 };
+
 module.exports = { authMiddleware, corsEnableMiddleware };
